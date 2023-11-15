@@ -48,7 +48,7 @@ const Canvas2Image = (function () {
     }
 
     // save file to local with file name and file type
-    function saveFile(strData, fileType, fileName = "name") {
+    function saveFile(strData, fileType, fileName) {
         // document.location.href = strData;
         let saveLink = document.createElement("a");
         // download file name
@@ -99,8 +99,9 @@ const Canvas2Image = (function () {
     }
 
     /**
-     * create bitmap image
-     * 按照规则生成图片响应头和响应体
+	 * Creates a base64 encoded string containing BMP data.
+	 *
+	 * Takes an image data (getImageData) object as argument
      */
     const genBitmapImage = function (oData) {
         //
@@ -268,13 +269,13 @@ const Canvas2Image = (function () {
             type = fixType(type);
             if (/bmp/.test(type)) {
                 const data = getImageData(scaleCanvas(canvas, width, height));
-                const strData = genBitmapImage(data);
+                const bitMapStrData = genBitmapImage(data);
                 // use new parameter: fileType
-                saveFile(makeURI(strData, downloadMime), fileType, fileName);
+                saveFile(makeURI(bitmapStrData, downloadMime), fileType, fileName);
             } else {
-                const strData = getDataURL(canvas, type, width, height);
+                const urlStrData = getDataURL(canvas, type, width, height);
                 // use new parameter: fileType
-                saveFile(strData.replace(type, downloadMime), fileType, fileName);
+                saveFile(urlStrData.replace(type, downloadMime), fileType, fileName);
             }
         }
     };
@@ -291,11 +292,11 @@ const Canvas2Image = (function () {
 
             if (/bmp/.test(type)) {
                 const data = getImageData(scaleCanvas(canvas, width, height));
-                const strData = genBitmapImage(data);
-                return genImage(makeURI(strData, "image/bmp"));
+                const bitmapStrData = genBitmapImage(data);
+                return genImage(makeURI(bitmapStrData, "image/bmp"));
             } else {
-                const strData = getDataURL(canvas, type, width, height);
-                return genImage(strData);
+                const urlStrData = getDataURL(canvas, type, width, height);
+                return genImage(urlStrData);
             }
         }
     };
@@ -330,7 +331,3 @@ const Canvas2Image = (function () {
         },
     };
 })();
-
-// Export function, used in npm
-export default Canvas2Image;
-

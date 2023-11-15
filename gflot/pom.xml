@@ -29,7 +29,7 @@
   <groupId>com.googlecode.gflot</groupId>
   <artifactId>gflot</artifactId>
   <packaging>jar</packaging>
-  <version>3.3.1-SNAPSHOT</version>
+  <version>3.4.0-SNAPSHOT</version>
 
   <name>GFlot :: API</name>
   <description>A GWT module that provides widgets for creation and manipulation of charts based on the Flot JavaScript
@@ -92,8 +92,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
 
     <!-- Plugins version -->
     <maven-compiler.version>3.2</maven-compiler.version>
@@ -101,7 +101,7 @@
     <maven-javadoc.version>2.10.1</maven-javadoc.version>
     <maven-gpg.version>1.5</maven-gpg.version>
     <maven-jar.version>2.5</maven-jar.version>
-    <minify-maven.version>1.7</minify-maven.version>
+    <minify-maven.version>1.7.6</minify-maven.version>
 
     <!-- GWT dependencies version -->
     <gwt.version>2.2.0</gwt.version>

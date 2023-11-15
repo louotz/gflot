@@ -1,7 +1,7 @@
 This folder contains all the scripts used by gflot
 
 jquery :
-- version 1.8.3
+- version 1.12.4
 
 0.8.2/jquery.flot.images :
 - Added checks in the function $.plot.image.loadDataImages to avoid null pointer when the images option are not set.
@@ -17,3 +17,10 @@ plugins/jquery.flot.fillarea
 plugins/jquery.flot.orderBars
 - from https://github.com/pkoltermann/SideBySideImproved
 - commit Feb 12, 2013
+
+canvas2image
+- from https://github.com/hongru/canvas2image
+- upated version of the original canvas2image original from 2008.
+
+base64.js
+- base64 encoding and decoding functions for binary data.

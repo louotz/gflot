@@ -4,7 +4,7 @@ gflot is a GWT wrapper of the javascript libray [flot](http://www.flotcharts.org
 
 **Current stable version :** 3.3.0
 
-**Current dev version :** 3.3.1-SNAPSHOT
+**Current dev version :** 3.4.0-SNAPSHOT
 
 A demo is available here : http://gflot2.appspot.com/
 or here : http://nmorel.github.io/gflot

@@ -96,15 +96,16 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <!-- Plugins version -->
-    <maven-compiler.version>3.2</maven-compiler.version>
+    <maven-compiler.version>3.8.0</maven-compiler.version>
     <maven-source.version>2.4</maven-source.version>
     <maven-javadoc.version>2.10.1</maven-javadoc.version>
     <maven-gpg.version>1.5</maven-gpg.version>
     <maven-jar.version>2.5</maven-jar.version>
-    <minify-maven.version>1.7.6</minify-maven.version>
 
     <!-- GWT dependencies version -->
     <gwt.version>2.2.0</gwt.version>
+
+    <minify-workdir>${project.basedir}/../flot/minify-workdir</minify-workdir>
   </properties>
 
   <dependencies>
@@ -146,51 +147,167 @@
         </configuration>
       </plugin>
 
+      <!--
+        ~ Updating Minified Scripts
+        ~
+        ~ The wrapped JavaScript files (JQuery, Flot, etc) are not minified
+        ~ automatically during every build because they are rarely updated.
+        ~
+        ~ The update the minified scripts run these executions and manually:
+        ~
+        ~   mvn antrun:run@minify-clean
+        ~   mvn resources:resources@minify-prepare
+        ~   mvn resources-optimizer:optimize
+        ~   mvn antrun:run@minify-apply
+        ~   mvn antrun:run@minify-clean
+        ~
+        ~ If you update any of those scripts in the /flot directory, you'll
+        ~ need to make adjustments to the maven-resources-plugin's minify-prepare
+        ~ execution, which is a few tens of lines below.
+        -->
+
+      <!--
+        ~ Clear any existing minified JavaScript files from the output folder
+        ~ before any rebuild.
+        -->
       <plugin>
-        <groupId>com.samaxes.maven</groupId>
-        <artifactId>minify-maven-plugin</artifactId>
-        <version>${minify-maven.version}</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
         <executions>
           <execution>
-            <id>default-minify</id>
-            <phase>process-resources</phase>
-            <configuration>
-              <charset>utf-8</charset>
-              <webappSourceDir>${project.basedir}/../flot/</webappSourceDir>
-              <webappTargetDir>${project.basedir}/src/main/java/com/googlecode/gflot/client/resources/</webappTargetDir>
-              <jsSourceDir>/</jsSourceDir>
-              <jsSourceFiles>
-                <jsSourceFile>base64.js</jsSourceFile>
-                <jsSourceFile>canvas2image.js</jsSourceFile>
-                <jsSourceFile>jquery.js</jsSourceFile>
-                <jsSourceFile>0.8.3/excanvas.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.canvas.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.categories.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.crosshair.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.errorbars.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.fillbetween.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.image.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.navigate.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.pie.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.resize.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.selection.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.stack.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.symbol.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.threshold.js</jsSourceFile>
-                <jsSourceFile>0.8.3/jquery.flot.time.js</jsSourceFile>
-                <jsSourceFile>plugins/jquery.flot.axislabels.js</jsSourceFile>
-                <jsSourceFile>plugins/jquery.flot.tickrotor.js</jsSourceFile>
-                <jsSourceFile>plugins/jquery.flot.fillarea.js</jsSourceFile>
-                <jsSourceFile>plugins/jquery.flot.orderBars.js</jsSourceFile>
-              </jsSourceFiles>
-              <skipMerge>true</skipMerge>
-            </configuration>
+            <id>minify-clean</id>
+            <phase>none</phase>
             <goals>
-              <goal>minify</goal>
+              <goal>run</goal>
             </goals>
+            <configuration>
+              <target>
+                <delete failonerror="false">
+                  <fileset dir="${minify-workdir}"/>
+                </delete>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>minify-apply</id>
+            <phase>none</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <move todir="${project.basedir}/src/main/java/com/googlecode/gflot/client/resources/">
+                  <fileset dir="${minify-workdir}">
+                  <include name="*.min.js"/>
+                  </fileset>
+                </move>
+              </target>
+            </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <!--
+        ~ Copy JQuery and friends to the resources directory where
+        ~ they will be minimized.
+        -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>minify-prepare</id>
+            <phase>none</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${minify-workdir}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/../flot</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>base64.js</include>
+                    <include>canvas2image.js</include>
+                    <include>jquery.js</include>
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>${project.basedir}/../flot/0.8.3</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>excanvas.js</include>
+                    <include>jquery.flot.canvas.js</include>
+                    <include>jquery.flot.categories.js</include>
+                    <include>jquery.flot.crosshair.js</include>
+                    <include>jquery.flot.errorbars.js</include>
+                    <include>jquery.flot.fillbetween.js</include>
+                    <include>jquery.flot.image.js</include>
+                    <include>jquery.flot.js</include>
+                    <include>jquery.flot.navigate.js</include>
+                    <include>jquery.flot.pie.js</include>
+                    <include>jquery.flot.resize.js</include>
+                    <include>jquery.flot.selection.js</include>
+                    <include>jquery.flot.stack.js</include>
+                    <include>jquery.flot.symbol.js</include>
+                    <include>jquery.flot.threshold.js</include>
+                    <include>jquery.flot.time.js</include>
+                  </includes>
+                 </resource>
+                 <resource>
+                  <directory>${project.basedir}/../flot/plugins</directory>
+                  <includes>
+                  <include>jquery.flot.axislabels.js</include>
+                  <include>jquery.flot.background.js</include>
+                  <include>jquery.flot.fillarea.js</include>
+                  <include>jquery.flot.orderBars.js</include>
+                  <include>jquery.flot.tickrotor.js</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--
+        - Replaces minify-maven-plugin which has been unmaintained and no
+        ~ longer runs with more recent versions of maven.
+        -->
+      <plugin>
+        <groupId>org.primefaces.extensions</groupId>
+        <artifactId>resources-optimizer-maven-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+        <execution>
+          <id>optimize</id>
+                <phase>none</phase>
+          <goals>
+          <goal>optimize</goal>
+          </goals>
+        </execution>
+        </executions>
+        <configuration>
+          <compilationLevel>SIMPLE_OPTIMIZATIONS</compilationLevel>
+          <warningLevel>QUIET</warningLevel>
+          <failOnWarning>false</failOnWarning>
+          <suffix>.min</suffix>
+          <useDataUri>true</useDataUri>
+          <languageIn>ECMASCRIPT_2015</languageIn>
+          <languageOut>NO_TRANSPILE</languageOut>
+          <resourcesSets>
+            <resourcesSet>
+              <inputDir>${minify-workdir}</inputDir>
+              <includes>
+                <include>*.js</include>
+                <include>**/*.js</include>
+              </includes>
+            </resourcesSet>
+          </resourcesSets>
+        </configuration>
       </plugin>
     </plugins>
   </build>

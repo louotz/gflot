@@ -236,7 +236,7 @@
                   </includes>
                 </resource>
                 <resource>
-                  <directory>${project.basedir}/../flot/0.8.3</directory>
+                  <directory>${project.basedir}/../flot/src</directory>
                   <filtering>true</filtering>
                   <includes>
                     <include>excanvas.js</include>

@@ -22,13 +22,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.google.gwt</groupId>
+      <groupId>org.gwtproject</groupId>
       <artifactId>gwt-user</artifactId>
       <version>${gwt.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.google.gwt</groupId>
+      <groupId>org.gwtproject</groupId>
       <artifactId>gwt-dev</artifactId>
       <version>${gwt.version}</version>
       <scope>provided</scope>
@@ -85,22 +85,22 @@
         <version>2.10.0</version>
         <dependencies>
           <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
           </dependency>
           <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-dev</artifactId>
             <version>${gwt.version}</version>
           </dependency>
           <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwt.version}</version>
           </dependency>
           <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-codeserver</artifactId>
             <version>${gwt.version}</version>
           </dependency>
@@ -182,14 +182,14 @@
           <classpathContainers>
             <classpathContainer>com.google.appengine.eclipse.core.GAE_CONTAINER</classpathContainer>
             <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-            <classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+            <classpathContainer>com.gwtplugins.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
           </classpathContainers>
           <additionalBuildcommands>
-            <buildcommand>com.google.gwt.eclipse.core.gwtProjectValidator</buildcommand>
+            <buildcommand>com.gwtplugins.gwt.eclipse.core.gwtProjectValidator</buildcommand>
           </additionalBuildcommands>
           <additionalProjectnatures>
             <projectnature>com.google.appengine.eclipse.core.gaeNature</projectnature>
-            <projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+            <projectnature>com.gwtplugins.eclipse.core.gwtNature</projectnature>
           </additionalProjectnatures>
         </configuration>
       </plugin>

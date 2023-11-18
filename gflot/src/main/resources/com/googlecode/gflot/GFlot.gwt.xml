@@ -32,6 +32,8 @@
 
   <define-property name="gflot.load" values="ENABLED, EXTERNAL" />
   <define-property name="gflot.load.jquery" values="ENABLED, EXTERNAL" />
+  <define-property name="gflot.load.jquerycanvaswrapper" values="ENABLED, EXTERNAL" />
+  <define-property name="gflot.load.jquerycolorhelpers" values="ENABLED, EXTERNAL" />
   <define-property name="gflot.load.flot.selection" values="ENABLED, DISABLED" />
   <define-property name="gflot.load.flot.symbol" values="ENABLED, DISABLED" />
   <define-property name="gflot.load.flot.image" values="ENABLED, DISABLED" />
@@ -55,6 +57,8 @@
   <!-- Default values -->
   <set-property name="gflot.load" value="ENABLED" />
   <set-property name="gflot.load.jquery" value="ENABLED" />
+  <set-property name="gflot.load.jquerycanvaswrapper" value="ENABLED" />
+  <set-property name="gflot.load.jquerycolorhelpers" value="ENABLED" />
   <set-property name="gflot.load.flot.selection" value="ENABLED" />
   <set-property name="gflot.load.flot.symbol" value="ENABLED" />
   <set-property name="gflot.load.flot.image" value="ENABLED" />
@@ -193,6 +197,20 @@
     <any>
       <when-property-is name="gflot.load" value="EXTERNAL" />
       <when-property-is name="gflot.load.jquery" value="EXTERNAL" />
+    </any>
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.JQueryCanvasWrapperLoader" />
+    <any>
+      <when-property-is name="gflot.load" value="EXTERNAL" />
+      <when-property-is name="gflot.load.jquerycanvaswrapper" value="EXTERNAL" />
+    </any>
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.JQueryColorHelpersLoader" />
+    <any>
+      <when-property-is name="gflot.load" value="EXTERNAL" />
+      <when-property-is name="gflot.load.jquerycolorhelpers" value="EXTERNAL" />
     </any>
   </replace-with>
   <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">

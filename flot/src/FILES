@@ -1,0 +1,34 @@
+#
+# Facilitates downloading the files using a one-liner script.
+#
+# For example:
+#   grep -v "^#" FILES | while read FILE; do curl https://raw.githubusercontent.com/flot/flot/vX.X.X/source/$FILE --output $FILE; done
+#
+jquery.canvaswrapper.js
+jquery.colorhelpers.js
+jquery.flot.axislabels.js
+jquery.flot.browser.js
+jquery.flot.categories.js
+jquery.flot.composeImages.js
+jquery.flot.crosshair.js
+jquery.flot.drawSeries.js
+jquery.flot.errorbars.js
+jquery.flot.fillbetween.js
+jquery.flot.flatdata.js
+jquery.flot.hover.js
+jquery.flot.image.js
+jquery.flot.js
+jquery.flot.legend.js
+jquery.flot.logaxis.js
+jquery.flot.navigate.js
+jquery.flot.pie.js
+jquery.flot.resize.js
+jquery.flot.saturated.js
+jquery.flot.selection.js
+jquery.flot.stack.js
+jquery.flot.symbol.js
+jquery.flot.threshold.js
+jquery.flot.time.js
+jquery.flot.touch.js
+jquery.flot.touchNavigate.js
+jquery.flot.uiConstants.js

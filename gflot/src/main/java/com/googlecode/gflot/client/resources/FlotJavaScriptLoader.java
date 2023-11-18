@@ -54,6 +54,10 @@ public class FlotJavaScriptLoader
 
         PluginLoader getFlotLoader();
 
+		PluginLoader getJqueryCanvasWrapperLoader();
+
+		PluginLoader getJqueryColorHelperLoader();
+
         PluginLoader getFlotSelectionLoader();
 
         PluginLoader getFlotSymbolLoader();
@@ -103,6 +107,10 @@ public class FlotJavaScriptLoader
         private boolean loaded = false;
 
         private PluginLoader jqueryLoader;
+
+        private PluginLoader jqueryCanvasWrapperLoader;
+
+        private PluginLoader jqueryColorHelperLoader;
 
         private PluginLoader flotLoader;
 
@@ -167,6 +175,26 @@ public class FlotJavaScriptLoader
                 jqueryLoader = GWT.create( JQueryLoader.class );
             }
             return jqueryLoader;
+        }
+
+        @Override
+        public PluginLoader getJqueryCanvasWrapperLoader()
+        {
+            if ( null == jqueryCanvasWrapperLoader )
+            {
+                jqueryCanvasWrapperLoader = GWT.create( JQueryCanvasWrapperLoader.class );
+            }
+            return jqueryCanvasWrapperLoader;
+        }
+
+        @Override
+        public PluginLoader getJqueryColorHelperLoader()
+        {
+            if ( null == jqueryColorHelperLoader )
+            {
+                jqueryColorHelperLoader = GWT.create( JQueryColorHelpersLoader.class );
+            }
+            return jqueryColorHelperLoader;
         }
 
         @Override
@@ -392,6 +420,8 @@ public class FlotJavaScriptLoader
         private void load()
         {
             getJqueryLoader().load();
+            getJqueryCanvasWrapperLoader().load();
+            getJqueryColorHelperLoader().load();
             getFlotLoader().load();
             getFlotSelectionLoader().load();
             getFlotSymbolLoader().load();

@@ -38,6 +38,18 @@ public class FlotLoader
     {
         @Source( "jquery.flot.min.js" )
         TextResource flot();
+
+        @Source( "jquery.flot.uiConstants.min.js" )
+        TextResource flotUiConstants();
+
+        @Source( "jquery.flot.browser.min.js" )
+        TextResource flotBrowser();
+
+        @Source( "jquery.flot.saturated.min.js" )
+        TextResource flotSaturated();
+
+        @Source( "jquery.flot.drawSeries.min.js" )
+        TextResource flotDrawSeries();
     }
 
     private Bundle bundle;
@@ -59,6 +71,10 @@ public class FlotLoader
         if ( !loaded )
         {
             JavaScriptInjector.inject( getBundle().flot().getText() );
+            JavaScriptInjector.inject( getBundle().flotUiConstants().getText() );
+            JavaScriptInjector.inject( getBundle().flotBrowser().getText() );
+            JavaScriptInjector.inject( getBundle().flotSaturated().getText() );
+            JavaScriptInjector.inject( getBundle().flotDrawSeries().getText() );
             loaded = true;
         }
     }

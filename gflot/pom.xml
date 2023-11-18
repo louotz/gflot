@@ -240,21 +240,35 @@
                   <filtering>true</filtering>
                   <includes>
                     <include>excanvas.js</include>
+                    <include>jquery.canvaswrapper.js</include>
+                    <include>jquery.colorhelpers.js</include>
+                    <include>jquery.flot.axislabels.js</include>
+                    <include>jquery.flot.browser.js</include>
                     <include>jquery.flot.canvas.js</include>
                     <include>jquery.flot.categories.js</include>
+                    <include>jquery.flot.composeImages.js</include>
                     <include>jquery.flot.crosshair.js</include>
+                    <include>jquery.flot.drawSeries.js</include>
                     <include>jquery.flot.errorbars.js</include>
                     <include>jquery.flot.fillbetween.js</include>
+                    <include>jquery.flot.flatdata.js</include>
+                    <include>jquery.flot.hover.js</include>
                     <include>jquery.flot.image.js</include>
                     <include>jquery.flot.js</include>
+                    <include>jquery.flot.legend.js</include>
+                    <include>jquery.flot.logaxis.js</include>
                     <include>jquery.flot.navigate.js</include>
                     <include>jquery.flot.pie.js</include>
                     <include>jquery.flot.resize.js</include>
+                    <include>jquery.flot.saturated.js</include>
                     <include>jquery.flot.selection.js</include>
                     <include>jquery.flot.stack.js</include>
                     <include>jquery.flot.symbol.js</include>
                     <include>jquery.flot.threshold.js</include>
                     <include>jquery.flot.time.js</include>
+                    <include>jquery.flot.touch.js</include>
+                    <include>jquery.flot.touchNavigate.js</include>
+                    <include>jquery.flot.uiConstants.js</include>
                   </includes>
                  </resource>
                  <resource>

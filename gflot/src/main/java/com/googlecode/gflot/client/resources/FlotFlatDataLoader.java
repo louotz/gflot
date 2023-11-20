@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Nicolas Morel
+ * Copyright (c) 2023 Luis Ortiz
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -30,14 +30,14 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.TextResource;
 import com.googlecode.gflot.client.util.JavaScriptInjector;
 
-public class FlotBackgroundLoader
+public class FlotFlatDataLoader
     extends DefaultLoader
 {
     interface Bundle
         extends ClientBundle
     {
-        @Source( "jquery.flot.background.min.js" )
-        TextResource flotBackground();
+        @Source( "jquery.flot.flatdata.min.js" )
+        TextResource flotFlatData();
     }
 
     private Bundle bundle;
@@ -58,9 +58,8 @@ public class FlotBackgroundLoader
     {
         if ( !loaded )
         {
-            JavaScriptInjector.inject( getBundle().flotBackground().getText() );
+            JavaScriptInjector.inject( getBundle().flotFlatData().getText() );
             loaded = true;
         }
     }
-
 }

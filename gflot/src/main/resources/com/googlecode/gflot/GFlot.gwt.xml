@@ -53,6 +53,12 @@
   <define-property name="gflot.load.flot.canvas" values="ENABLED, DISABLED" />
   <define-property name="gflot.load.flot.errorbars" values="ENABLED, DISABLED" />
   <define-property name="gflot.load.flot.categories" values="ENABLED, DISABLED" />
+  <define-property name="gflot.load.flot.flatdata" values="ENABLED, DISABLED" />
+  <define-property name="gflot.load.flot.hover" values="ENABLED, DISABLED" />
+  <define-property name="gflot.load.flot.legend" values="ENABLED, DISABLED" />
+  <define-property name="gflot.load.flot.logaxis" values="ENABLED, DISABLED" />
+  <define-property name="gflot.load.flot.touch" values="ENABLED, DISABLED" />
+  <define-property name="gflot.load.flot.touchnavigate" values="ENABLED, DISABLED" />
 
   <!-- Default values -->
   <set-property name="gflot.load" value="ENABLED" />
@@ -78,6 +84,12 @@
   <set-property name="gflot.load.flot.canvas" value="DISABLED" />
   <set-property name="gflot.load.flot.errorbars" value="ENABLED" />
   <set-property name="gflot.load.flot.categories" value="ENABLED" />
+  <set-property name="gflot.load.flot.flatdata" value="ENABLED" />
+  <set-property name="gflot.load.flot.hover" value="ENABLED" />
+  <set-property name="gflot.load.flot.legend" value="ENABLED" />
+  <set-property name="gflot.load.flot.logaxis" value="ENABLED" />
+  <set-property name="gflot.load.flot.touch" value="DISABLED" />
+  <set-property name="gflot.load.flot.touchnavigate" value="DISABLED" />
 
   <!-- Load excanvas only for IE < 9 -->
   <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
@@ -190,6 +202,36 @@
     <when-property-is name="gflot.load" value="ENABLED" />
     <when-property-is name="gflot.load.flot.categories" value="DISABLED" />
   </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotFlatDataLoader" />
+    <when-property-is name="gflot.load" value="ENABLED" />
+    <when-property-is name="gflot.load.flot.flatdata" value="DISABLED" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotHoverLoader" />
+    <when-property-is name="gflot.load" value="ENABLED" />
+    <when-property-is name="gflot.load.flot.hover" value="DISABLED" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotLegendLoader" />
+    <when-property-is name="gflot.load" value="ENABLED" />
+    <when-property-is name="gflot.load.flot.legend" value="DISABLED" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotLogAxisLoader" />
+    <when-property-is name="gflot.load" value="ENABLED" />
+    <when-property-is name="gflot.load.flot.logaxis" value="DISABLED" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotTouchLoader" />
+    <when-property-is name="gflot.load" value="ENABLED" />
+    <when-property-is name="gflot.load.flot.touch" value="DISABLED" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.NullLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotTouchNavigateLoader" />
+    <when-property-is name="gflot.load" value="ENABLED" />
+    <when-property-is name="gflot.load.flot.touchnavigate" value="DISABLED" />
+  </replace-with>
 
   <!-- External loading -->
   <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
@@ -298,4 +340,28 @@
     <when-property-is name="gflot.load" value="EXTERNAL" />
   </replace-with>
 
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotFlatDataLoader" />
+    <when-property-is name="gflot.load" value="EXTERNAL" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotHoverLoader" />
+    <when-property-is name="gflot.load" value="EXTERNAL" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotLegendLoader" />
+    <when-property-is name="gflot.load" value="EXTERNAL" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotLogAxisLoader" />
+    <when-property-is name="gflot.load" value="EXTERNAL" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotTouchLoader" />
+    <when-property-is name="gflot.load" value="EXTERNAL" />
+  </replace-with>
+  <replace-with class="com.googlecode.gflot.client.resources.ExternalLoader">
+    <when-type-is class="com.googlecode.gflot.client.resources.FlotTouchNavigateLoader" />
+    <when-property-is name="gflot.load" value="EXTERNAL" />
+  </replace-with>
 </module>

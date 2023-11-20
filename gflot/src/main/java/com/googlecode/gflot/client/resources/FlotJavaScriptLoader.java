@@ -31,18 +31,13 @@ public class FlotJavaScriptLoader
     public interface FlotJavaScriptCallback
     {
         void onError( Throwable caught );
-
         void onSuccess();
     }
 
-    private static Impl impl;
+    private static Impl impl = GWT.create( Impl.class );
 
     public static Impl get()
     {
-        if ( null == impl )
-        {
-            impl = GWT.create( Impl.class );
-        }
         return impl;
     }
 
@@ -51,54 +46,36 @@ public class FlotJavaScriptLoader
         void loadRequiredFlotLibrary( final FlotJavaScriptCallback callback );
 
         PluginLoader getJqueryLoader();
-
-        PluginLoader getFlotLoader();
-
 		PluginLoader getJqueryCanvasWrapperLoader();
-
 		PluginLoader getJqueryColorHelperLoader();
-
+        PluginLoader getFlotLoader();
         PluginLoader getFlotSelectionLoader();
-
         PluginLoader getFlotSymbolLoader();
-
         PluginLoader getFlotImageLoader();
-
         PluginLoader getFlotPieLoader();
-
         PluginLoader getFlotStackLoader();
-
         PluginLoader getExcanvasLoader();
-
         PluginLoader getFlotResizeLoader();
-
         PluginLoader getCanvas2ImageLoader();
-
         PluginLoader getFlotAxisLabelsLoader();
-
         PluginLoader getFlotTickRotorLoader();
-
         PluginLoader getFlotThresholdLoader();
-
         PluginLoader getFlotNavigateLoader();
-
         PluginLoader getFlotCrosshairLoader();
-
         PluginLoader getFlotOrderBarsLoader();
-
         PluginLoader getFlotFillBetweenLoader();
-
         PluginLoader getFlotFillAreaLoader();
-
         PluginLoader getFlotTimeLoader();
-
         PluginLoader getFlotCanvasLoader();
-
         PluginLoader getFlotErrorBarsLoader();
-
         PluginLoader getFlotCategoriesLoader();
-        
         PluginLoader getFlotBackgroundLoader();
+        PluginLoader getFlotFlatDataLoader();
+        PluginLoader getFlotHoverLoader();
+        PluginLoader getFlotLegendLoader();
+        PluginLoader getFlotLogAxisLoader();
+        PluginLoader getFlotTouchLoader();
+        PluginLoader getFlotTouchNavigateLoader();
     }
 
     public static class SynchronousImpl
@@ -106,56 +83,38 @@ public class FlotJavaScriptLoader
     {
         private boolean loaded = false;
 
-        private PluginLoader jqueryLoader;
-
-        private PluginLoader jqueryCanvasWrapperLoader;
-
-        private PluginLoader jqueryColorHelperLoader;
-
-        private PluginLoader flotLoader;
-
-        private PluginLoader flotSelectionLoader;
-
-        private PluginLoader flotSymbolLoader;
-
-        private PluginLoader flotImageLoader;
-
-        private PluginLoader flotPieLoader;
-
-        private PluginLoader flotStackLoader;
-
-        private PluginLoader flotResizeLoader;
-
-        private PluginLoader excanvasLoader;
-
-        private PluginLoader canvas2ImageLoader;
-
-        private PluginLoader flotAxisLabelsLoader;
-
-        private PluginLoader flotTickRotorLoader;
-
-        private PluginLoader flotThresholdLoader;
-
-        private PluginLoader flotNavigateLoader;
-
-        private PluginLoader flotCrosshairLoader;
-
-        private PluginLoader flotOrderBarsLoader;
-
-        private PluginLoader flotFillBetweenLoader;
-
-        private PluginLoader flotFillAreaLoader;
-
-        private PluginLoader flotTimeLoader;
-
-        private PluginLoader flotCanvasLoader;
-
-        private PluginLoader flotErrorBarsLoader;
-
-        private PluginLoader flotCategoriesLoader;
-
-        private PluginLoader flotBackgroundLoader;
-
+        private final PluginLoader jqueryLoader = GWT.create( JQueryLoader.class );
+        private final PluginLoader jqueryCanvasWrapperLoader = GWT.create( JQueryCanvasWrapperLoader.class );
+        private final PluginLoader jqueryColorHelperLoader = GWT.create( JQueryColorHelpersLoader.class );
+        private final PluginLoader flotLoader = GWT.create( FlotLoader.class );
+        private final PluginLoader flotSelectionLoader = GWT.create( FlotSelectionLoader.class );
+        private final PluginLoader flotSymbolLoader = GWT.create( FlotSymbolLoader.class );
+        private final PluginLoader flotImageLoader = GWT.create( FlotImageLoader.class );
+        private final PluginLoader flotPieLoader = GWT.create( FlotPieLoader.class );
+        private final PluginLoader flotStackLoader = GWT.create( FlotStackLoader.class );
+        private final PluginLoader flotResizeLoader = GWT.create( ExplorerCanvasLoader.class );
+        private final PluginLoader excanvasLoader = GWT.create( FlotResizeLoader.class );
+        private final PluginLoader canvas2ImageLoader = GWT.create( Canvas2ImageLoader.class );
+        private final PluginLoader flotAxisLabelsLoader = GWT.create( FlotAxisLabelsLoader.class );
+        private final PluginLoader flotTickRotorLoader = GWT.create( FlotTickRotorLoader.class );
+        private final PluginLoader flotThresholdLoader = GWT.create( FlotThresholdLoader.class );
+        private final PluginLoader flotNavigateLoader = GWT.create( FlotNavigateLoader.class );
+        private final PluginLoader flotCrosshairLoader = GWT.create( FlotCrosshairLoader.class );
+        private final PluginLoader flotOrderBarsLoader = GWT.create( FlotOrderBarsLoader.class );
+        private final PluginLoader flotFillBetweenLoader = GWT.create( FlotFillBetweenLoader.class );
+        private final PluginLoader flotFillAreaLoader = GWT.create( FlotFillAreaLoader.class );
+        private final PluginLoader flotTimeLoader = GWT.create( FlotTimeLoader.class );
+        private final PluginLoader flotCanvasLoader = GWT.create( FlotCanvasLoader.class );
+        private final PluginLoader flotErrorBarsLoader = GWT.create( FlotErrorBarsLoader.class );
+        private final PluginLoader flotCategoriesLoader = GWT.create( FlotCategoriesLoader.class );
+        private final PluginLoader flotBackgroundLoader = GWT.create( FlotBackgroundLoader.class );
+		private final PluginLoader flotFlatDataLoader = GWT.create( FlotFlatDataLoader.class );
+		private final PluginLoader flotHoverLoader = GWT.create( FlotHoverLoader.class );
+		private final PluginLoader flotLegendLoader = GWT.create( FlotLegendLoader.class );
+		private final PluginLoader flotLogAxisLoader = GWT.create( FlotLogAxisLoader.class );
+		private final PluginLoader flotTouchLoader = GWT.create( FlotTouchLoader.class );
+		private final PluginLoader flotTouchNavigateLoader = GWT.create( FlotTouchNavigateLoader.class );
+ 
         @Override
         public void loadRequiredFlotLibrary( final FlotJavaScriptCallback callback )
         {
@@ -170,253 +129,183 @@ public class FlotJavaScriptLoader
         @Override
         public PluginLoader getJqueryLoader()
         {
-            if ( null == jqueryLoader )
-            {
-                jqueryLoader = GWT.create( JQueryLoader.class );
-            }
-            return jqueryLoader;
+        	return jqueryLoader;
         }
 
         @Override
         public PluginLoader getJqueryCanvasWrapperLoader()
         {
-            if ( null == jqueryCanvasWrapperLoader )
-            {
-                jqueryCanvasWrapperLoader = GWT.create( JQueryCanvasWrapperLoader.class );
-            }
             return jqueryCanvasWrapperLoader;
         }
 
         @Override
         public PluginLoader getJqueryColorHelperLoader()
         {
-            if ( null == jqueryColorHelperLoader )
-            {
-                jqueryColorHelperLoader = GWT.create( JQueryColorHelpersLoader.class );
-            }
             return jqueryColorHelperLoader;
         }
 
         @Override
         public PluginLoader getFlotLoader()
         {
-            if ( null == flotLoader )
-            {
-                flotLoader = GWT.create( FlotLoader.class );
-            }
             return flotLoader;
         }
 
         @Override
         public PluginLoader getFlotSelectionLoader()
         {
-            if ( null == flotSelectionLoader )
-            {
-                flotSelectionLoader = GWT.create( FlotSelectionLoader.class );
-            }
             return flotSelectionLoader;
         }
 
         @Override
         public PluginLoader getFlotSymbolLoader()
         {
-            if ( null == flotSymbolLoader )
-            {
-                flotSymbolLoader = GWT.create( FlotSymbolLoader.class );
-            }
             return flotSymbolLoader;
         }
 
         @Override
         public PluginLoader getFlotImageLoader()
         {
-            if ( null == flotImageLoader )
-            {
-                flotImageLoader = GWT.create( FlotImageLoader.class );
-            }
             return flotImageLoader;
         }
 
         @Override
         public PluginLoader getFlotPieLoader()
         {
-            if ( null == flotPieLoader )
-            {
-                flotPieLoader = GWT.create( FlotPieLoader.class );
-            }
             return flotPieLoader;
         }
 
         @Override
         public PluginLoader getFlotStackLoader()
         {
-            if ( null == flotStackLoader )
-            {
-                flotStackLoader = GWT.create( FlotStackLoader.class );
-            }
             return flotStackLoader;
         }
 
         @Override
         public PluginLoader getExcanvasLoader()
         {
-            if ( null == excanvasLoader )
-            {
-                excanvasLoader = GWT.create( ExplorerCanvasLoader.class );
-            }
             return excanvasLoader;
         }
 
         @Override
         public PluginLoader getFlotResizeLoader()
         {
-            if ( null == flotResizeLoader )
-            {
-                flotResizeLoader = GWT.create( FlotResizeLoader.class );
-            }
             return flotResizeLoader;
         }
 
         @Override
         public PluginLoader getCanvas2ImageLoader()
         {
-            if ( null == canvas2ImageLoader )
-            {
-                canvas2ImageLoader = GWT.create( Canvas2ImageLoader.class );
-            }
             return canvas2ImageLoader;
         }
 
         @Override
         public PluginLoader getFlotAxisLabelsLoader()
         {
-            if ( null == flotAxisLabelsLoader )
-            {
-                flotAxisLabelsLoader = GWT.create( FlotAxisLabelsLoader.class );
-            }
             return flotAxisLabelsLoader;
         }
 
         @Override
         public PluginLoader getFlotTickRotorLoader()
         {
-            if ( null == flotTickRotorLoader )
-            {
-                flotTickRotorLoader = GWT.create( FlotTickRotorLoader.class );
-            }
             return flotTickRotorLoader;
         }
 
         @Override
         public PluginLoader getFlotThresholdLoader()
         {
-            if ( null == flotThresholdLoader )
-            {
-                flotThresholdLoader = GWT.create( FlotThresholdLoader.class );
-            }
             return flotThresholdLoader;
         }
 
         @Override
         public PluginLoader getFlotNavigateLoader()
         {
-            if ( null == flotNavigateLoader )
-            {
-                flotNavigateLoader = GWT.create( FlotNavigateLoader.class );
-            }
             return flotNavigateLoader;
         }
 
         @Override
         public PluginLoader getFlotCrosshairLoader()
         {
-            if ( null == flotCrosshairLoader )
-            {
-                flotCrosshairLoader = GWT.create( FlotCrosshairLoader.class );
-            }
             return flotCrosshairLoader;
         }
 
         @Override
         public PluginLoader getFlotOrderBarsLoader()
         {
-            if ( null == flotOrderBarsLoader )
-            {
-                flotOrderBarsLoader = GWT.create( FlotOrderBarsLoader.class );
-            }
             return flotOrderBarsLoader;
         }
 
         @Override
         public PluginLoader getFlotFillBetweenLoader()
         {
-            if ( null == flotFillBetweenLoader )
-            {
-                flotFillBetweenLoader = GWT.create( FlotFillBetweenLoader.class );
-            }
             return flotFillBetweenLoader;
         }
 
         @Override
         public PluginLoader getFlotFillAreaLoader()
         {
-            if ( null == flotFillAreaLoader )
-            {
-                flotFillAreaLoader = GWT.create( FlotFillAreaLoader.class );
-            }
             return flotFillAreaLoader;
         }
 
         @Override
         public PluginLoader getFlotTimeLoader()
         {
-            if ( null == flotTimeLoader )
-            {
-                flotTimeLoader = GWT.create( FlotTimeLoader.class );
-            }
             return flotTimeLoader;
         }
 
         @Override
         public PluginLoader getFlotCanvasLoader()
         {
-            if ( null == flotCanvasLoader )
-            {
-                flotCanvasLoader = GWT.create( FlotCanvasLoader.class );
-            }
             return flotCanvasLoader;
         }
 
         @Override
         public PluginLoader getFlotErrorBarsLoader()
         {
-            if ( null == flotErrorBarsLoader )
-            {
-                flotErrorBarsLoader = GWT.create( FlotErrorBarsLoader.class );
-            }
             return flotErrorBarsLoader;
         }
 
         @Override
         public PluginLoader getFlotCategoriesLoader()
         {
-            if ( null == flotCategoriesLoader )
-            {
-                flotCategoriesLoader = GWT.create( FlotCategoriesLoader.class );
-            }
             return flotCategoriesLoader;
         }
 
         @Override
         public PluginLoader getFlotBackgroundLoader()
         {
-            if ( null == flotBackgroundLoader )
-            {
-                flotBackgroundLoader = GWT.create( FlotBackgroundLoader.class );
-            }
             return flotBackgroundLoader;
         }
         
+		@Override
+		public PluginLoader getFlotFlatDataLoader() {
+			return flotFlatDataLoader;
+		}
+
+		@Override
+		public PluginLoader getFlotHoverLoader() {
+			return flotHoverLoader;
+		}
+
+		@Override
+		public PluginLoader getFlotLegendLoader() {
+			return flotLegendLoader;
+		}
+
+		@Override
+		public PluginLoader getFlotLogAxisLoader() {
+			return flotLogAxisLoader;
+		}
+
+		@Override
+		public PluginLoader getFlotTouchLoader() {
+			return flotTouchLoader;
+		}
+
+		@Override
+		public PluginLoader getFlotTouchNavigateLoader() {
+			return flotTouchNavigateLoader;
+		}
+
         private void load()
         {
             getJqueryLoader().load();
@@ -444,6 +333,12 @@ public class FlotJavaScriptLoader
             getFlotErrorBarsLoader().load();
             getFlotCategoriesLoader().load();
             getFlotBackgroundLoader().load();
-        }
+            getFlotFlatDataLoader().load(); 
+            getFlotHoverLoader().load(); 
+            getFlotLegendLoader().load(); 
+            getFlotLogAxisLoader().load(); 
+            getFlotTouchLoader().load(); 
+            getFlotTouchNavigateLoader().load(); 
+		}
     }
 }

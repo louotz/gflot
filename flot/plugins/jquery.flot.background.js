@@ -43,12 +43,16 @@
 			var img = new Image();
 			ctx.save();
 			ctx.translate(offset.left, offset.top);
-			img.src = opt.grid.background.imageurl;
 			if(typeof img !== "undefined"){
 				var alpha = ctx.globalAlpha;
-				if (opt.grid.background.alpha)
+				if (opt.grid.background.alpha) {
 					ctx.globalAlpha = opt.grid.background.alpha;
-				ctx.drawImage(img, 0, 0, plot.width(), plot.height());
+				}
+				if (opt.grid.background.imageurl) {
+					// set image src when imageurl is not null and not empty
+					img.src = opt.grid.background.imageurl;
+					ctx.drawImage(img, 0, 0, plot.width(), plot.height());
+				}
 				ctx.globalAlpha = alpha;
 			}
 			ctx.restore();

@@ -220,7 +220,7 @@ public class LegendOptions
      */
     public final LegendOptions setNumOfColumns( int cols )
     {
-        put( NUM_COLUMNS_KEY, new Integer( cols ) );
+        put( NUM_COLUMNS_KEY, Integer.valueOf( cols ) );
         return this;
     }
 

@@ -67,7 +67,7 @@ public class CategoriesAxisOptions extends AbstractAxisOptions<CategoriesAxisOpt
     public static final CategoriesAxisOptions create()
     {
         CategoriesAxisOptions axis = JavaScriptObject.createObject().cast();
-        axis.put( MODE_KEY, CATEGORIES_MODE_KEY );
+        axis.put( MODE_KEY, MODE_VALUE_CATEGORIES );
         return axis;
     }
 

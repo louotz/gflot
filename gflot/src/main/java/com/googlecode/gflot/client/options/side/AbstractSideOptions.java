@@ -30,6 +30,7 @@ import com.googlecode.gflot.client.jsni.JsonObject;
 /**
  * @author Nicolas Morel
  */
+@SuppressWarnings("unchecked")
 public abstract class AbstractSideOptions<T extends AbstractSideOptions<?>>
     extends JsonObject
 {

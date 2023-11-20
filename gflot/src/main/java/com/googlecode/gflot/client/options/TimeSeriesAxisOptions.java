@@ -115,7 +115,7 @@ public class TimeSeriesAxisOptions
     public static final TimeSeriesAxisOptions create()
     {
         TimeSeriesAxisOptions axis = JavaScriptObject.createObject().cast();
-        axis.put( MODE_KEY, TIME_MODE_KEY );
+        axis.put( MODE_KEY, MODE_VALUE_TIME );
         return axis;
     }
 

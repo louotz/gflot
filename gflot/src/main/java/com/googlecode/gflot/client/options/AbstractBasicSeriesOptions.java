@@ -46,7 +46,7 @@ public abstract class AbstractBasicSeriesOptions<T extends AbstractBasicSeriesOp
      */
     public final T setLineWidth( double lineWidth )
     {
-        put( LINE_WIDTH_KEY, new Double( lineWidth ) );
+        put( LINE_WIDTH_KEY, Double.valueOf( lineWidth ) );
         return (T) this;
     }
 

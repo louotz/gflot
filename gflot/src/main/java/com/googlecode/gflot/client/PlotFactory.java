@@ -26,8 +26,8 @@ package com.googlecode.gflot.client;
 
 
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.googlecode.gflot.client.options.PlotOptions;
 
 public final class PlotFactory
@@ -107,7 +107,7 @@ public final class PlotFactory
     static Element createUniquePlotContainer()
     {
         Element element = DOM.createElement( "div" );
-        DOM.setElementProperty( element, "id", Document.get().createUniqueId() );
+        element.setPropertyString("id", Document.get().createUniqueId());
         return element;
     }
 

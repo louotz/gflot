@@ -85,33 +85,83 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
         CSS, CANVAS, HTML;
     }
 
+    public enum AxisAutoScaleMode {
+        NONE( "none" ), LOOSE( "loose" ), EXACT( "exact" ), SLIDING_WINDOW( "sliding-window" );
+        
+        private final String flotValue;
+        
+        private AxisAutoScaleMode(String flotValue) {
+            this.flotValue = flotValue;
+        }
+        
+        public String getFlotValue() {
+            return flotValue;
+        }
+
+        static AxisAutoScaleMode findByFlotValue( String flotValue )
+        {
+            if ( null != flotValue && !"".equals( flotValue ) )
+            {
+                for ( AxisAutoScaleMode mode : values() )
+                {
+                    if ( mode.getFlotValue().equals( flotValue ) )
+                    {
+                        return mode;
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+    // defined in src/jquery.flot.js, but used in others
     private static final String SHOW_KEY = "show";
+    protected static final String MODE_KEY = "mode";
     private static final String POSITION_KEY = "position";
+    private static final String FONT_KEY = "font";
     private static final String COLOR_KEY = "color";
     private static final String TICK_COLOR_KEY = "tickColor";
+    private static final String TRANSFORM_KEY = "transform"; // Placeholder. See setTransform(TransformAxis transform); 
+    private static final String INVERSE_TRANSFORM_KEY= "inverseTransform"; // Placeholder. See setTransform(TransformAxis transform);
     private static final String MIN_KEY = "min";
     private static final String MAX_KEY = "max";
     private static final String AUTOSCALE_MARGIN_KEY = "autoscaleMargin";
+    private static final String AUTOSCALE_KEY = "autoScale";
+    private static final String WINDOW_SIZE_KEY = "windowSize";
+    private static final String GROW_ONLY_KEY = "growOnly";
+    private static final String TICKS_KEY = "ticks";
+    private static final String TICK_FORMATTER_KEY = "tickFormatter"; // Placeholder. @see TickFormatter
+    protected static final String SHOW_TICK_LABELS_KEY = "showTickLabels";
     private static final String LABEL_WIDTH_KEY = "labelWidth";
     private static final String LABEL_HEIGHT_KEY = "labelHeight";
     private static final String RESERVE_SPACE_KEY = "reserveSpace";
-    private static final String TICKS_KEY = "ticks";
     private static final String TICK_LENGTH_KEY = "tickLength";
+    protected static final String SHOW_MINOR_TICKS_KEY = "showMinorTicks";
+    protected static final String SHOW_TICKS_KEY = "showTicks";
+    private static final String GRID_LINES_KEY = "gridLines";
     private static final String ALIGN_TICKS_KEY = "alignTicksWithAxis";
+    protected static final String TICK_DECIMALS_KEY = "tickDecimals";
     protected static final String TICK_SIZE_KEY = "tickSize";
     protected static final String MIN_TICK_SIZE_KEY = "minTickSize";
-    protected static final String MODE_KEY = "mode";
-    protected static final String TIME_MODE_KEY = "time";
-    protected static final String CATEGORIES_MODE_KEY = "categories";
+    private static final String OFFSET_KEY = "offsetKey"; // Placeholder. Option automatically set by flot.navigate.
+    private static final String BOX_POSITION_KEY = "boxPosition"; // Placeholder. Option automatically set by flot. 
+    
+    protected static final String MODE_VALUE_TIME = "time"; // src/jquery.flot.time.js
+    protected static final String MODE_VALUE_CATEGORIES = "categories"; // src/jquery.flot.categories
+
+    // plugins/jquery.flot.axislabels.js
     private static final String AXIS_LABEL_KEY = "axisLabel";
     private static final String AXIS_LABEL_PADDING_KEY = "axisLabelPadding";
     private static final String AXIS_LABEL_RENDERING_MODE_CANVAS_KEY = "axisLabelUseCanvas";
     private static final String AXIS_LABEL_RENDERING_MODE_HTML_KEY = "axisLabelUseHtml";
     private static final String AXIS_LABEL_CANVAS_FONT_SIZE_KEY = "axisLabelFontSizePixels";
     private static final String AXIS_LABEL_CANVAS_FONT_FAMILY_KEY = "axisLabelFontFamily";
+    
+    // src/jquery.flot.navigate.js
     private static final String ZOOM_RANGE_KEY = "zoomRange";
     private static final String PAN_RANGE_KEY = "panRange";
-    private static final String FONT_KEY = "font";
+    
+    // src/jquery.flot.tickrotor.js
     private static final String AXIS_LABEL_ANGLE= "rotateTicks";
 
     protected AbstractAxisOptions()
@@ -236,7 +286,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setMinimum( double min )
     {
-        put( MIN_KEY, new Double( min ) );
+        put( MIN_KEY, Double.valueOf( min ) );
         return (T) this;
     }
 
@@ -264,7 +314,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setMaximum( double max )
     {
-        put( MAX_KEY, new Double( max ) );
+        put( MAX_KEY, Double.valueOf( max ) );
         return (T) this;
     }
 
@@ -294,7 +344,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setAutoscaleMargin( double margin )
     {
-        put( AUTOSCALE_MARGIN_KEY, new Double( margin ) );
+        put( AUTOSCALE_MARGIN_KEY, Double.valueOf( margin ) );
         return (T) this;
     }
 
@@ -316,6 +366,88 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
     public final T clearAutoscaleMargin()
     {
         clear( AUTOSCALE_MARGIN_KEY );
+        return (T) this;
+    }
+
+    /**
+     * Set the autoscale mode. 
+     */
+    public final T setAutoscaleMode( AxisAutoScaleMode mode )
+    {
+        put( AUTOSCALE_KEY, mode.getFlotValue() );
+        return (T) this;
+    }
+
+    /**
+     * @return the autoscale mode 
+     */
+    public final AxisAutoScaleMode getAutoScaleMode()
+    {
+        return AxisAutoScaleMode.findByFlotValue( getString( AUTOSCALE_KEY ) );
+    }
+
+    /**
+     * Set the autoscale mode to 'exact'
+     */
+    public final T clearAutoscaleMode()
+    {
+        clear( AUTOSCALE_KEY );
+        return (T) this;
+    }
+
+    /**
+     * Set the size for the sliding window. Applicable when autoscale is 'sliding-window'.
+     * @param size
+     * @return
+     */
+    public final T setWindowSize( double size )
+    {
+        put( WINDOW_SIZE_KEY, Double.valueOf( size ) );
+        return (T) this;
+    }
+
+    /**
+     * @return the size for the sliding window.
+     */
+    public final Double getWindowSize()
+    {
+        return getDouble( WINDOW_SIZE_KEY );
+    }
+
+    /**
+     * Set the size of the sliding window to the default.
+     */
+    public final T clearWindowSize()
+    {
+        clear( WINDOW_SIZE_KEY );
+        return (T) this;
+    }
+
+    /**
+     * Set the axis to only grow the scales to accomodate data but never shrink them back.
+     * @param growOnly
+     * @return
+     */
+    public final T setGrowOnly( boolean growOnly )
+    {
+        put( GROW_ONLY_KEY, Boolean.valueOf( growOnly ) );
+        return (T) this;
+    }
+
+    /**
+     * @return whether the axis will only grow the scales.
+     */
+    public final Boolean getGrowOnly()
+    {
+        return getBoolean( GROW_ONLY_KEY );
+    }
+
+    /**
+     * Set the axis to the default behavior which is to fit the data.
+     */
+    public final T clearGrowOnly()
+    {
+        clear( GROW_ONLY_KEY );
         return (T) this;
     }
 
@@ -382,7 +514,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setLabelWidth( double labelWidth )
     {
-        put( LABEL_WIDTH_KEY, new Double( labelWidth ) );
+        put( LABEL_WIDTH_KEY, Double.valueOf( labelWidth ) );
         return (T) this;
     }
 
@@ -408,7 +540,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setLabelHeight( double labelHeight )
     {
-        put( LABEL_HEIGHT_KEY, new Double( labelHeight ) );
+        put( LABEL_HEIGHT_KEY, Double.valueOf( labelHeight ) );
         return (T) this;
     }
 
@@ -464,7 +596,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setTicks( double ticks )
     {
-        put( TICKS_KEY, new Double( ticks ) );
+        put( TICKS_KEY, Double.valueOf( ticks ) );
         return (T) this;
     }
 
@@ -552,7 +684,7 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
      */
     public final T setTickLength( double tickLength )
     {
-        put( TICK_LENGTH_KEY, new Double( tickLength ) );
+        put( TICK_LENGTH_KEY, Double.valueOf( tickLength ) );
         return (T) this;
     }
 
@@ -570,6 +702,23 @@ public abstract class AbstractAxisOptions<T extends AbstractAxisOptions<?>>
     public final T clearTickLength()
     {
         clear( TICK_LENGTH_KEY );
+        return (T) this;
+    }
+
+    public final T setGridLines( boolean gridLines)
+    {
+        put( GRID_LINES_KEY, gridLines );
+        return (T) this;
+    }
+
+    public final Boolean getGridLines()
+    {
+        return getBoolean( GRID_LINES_KEY );
+    }
+
+    public final T clearGridLines()
+    {
+        clear( GRID_LINES_KEY );
         return (T) this;
     }
 

@@ -227,10 +227,9 @@ public class SlidingExample
     {
         return new FakeRpcServiceAsync()
         {
-            @SuppressWarnings("deprecation")
             public void getNewData( final AsyncCallback<DataPoint[]> callback )
             {
-                callback.onSuccess( new DataPoint[]{DataPoint.of( System.currentTimeMillis(), nextValue() )} );
+                callback.onSuccess( new DataPoint[] { DataPoint.of( System.currentTimeMillis(), nextValue() ) } );
             }
         };
     }

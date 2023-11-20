@@ -89,7 +89,7 @@ public class BarSeriesOptions
      */
     public final BarSeriesOptions setBarWidth( double width )
     {
-        put( BAR_WIDTH_KEY, new Double( width ) );
+        put( BAR_WIDTH_KEY, Double.valueOf( width ) );
         return this;
     }
 

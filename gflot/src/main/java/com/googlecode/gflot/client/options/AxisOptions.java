@@ -39,11 +39,64 @@ public class AxisOptions
     {
         return JavaScriptObject.createObject().cast();
     }
+    
+    public enum ShowTickLabelsMode {
+        NONE( "none" ), ENDPOINTS( "endpoints" ), MAJOR( "major" ), ALL( "all" );
+        
+        private final String flotValue;
+        
+        private ShowTickLabelsMode(String flotValue) {
+            this.flotValue = flotValue;
+        }
+        
+        public String getFlotValue() {
+            return flotValue;
+        }
 
-    private static final String TICK_DECIMALS_KEY = "tickDecimals";
+        static ShowTickLabelsMode findByFlotValue( String flotValue )
+        {
+            if ( null != flotValue && !"".equals( flotValue ) )
+            {
+                for ( ShowTickLabelsMode mode : values() )
+                {
+                    if ( mode.getFlotValue().equals( flotValue ) )
+                    {
+                        return mode;
+                    }
+                }
+            }
+            return null;
+        }
+    }
 
     protected AxisOptions()
     {
+    }
+
+    /**
+     * Set the ticks that will be displayed. The default is to display major ticks only.
+     */
+    public final AxisOptions setShowTickLabels( ShowTickLabelsMode mode )
+    {
+        put( SHOW_TICK_LABELS_KEY, mode.getFlotValue() );
+        return this;
+    }
+
+    /**
+     * @return the ticks displayed
+     */
+    public final ShowTickLabelsMode getShowTickLabels()
+    {
+        return ShowTickLabelsMode.findByFlotValue( getString( SHOW_TICK_LABELS_KEY ) );
+    }
+
+    /**
+     * Set that you want to display only the major ticks.
+     */
+    public final AxisOptions clearShowTickLabels()
+    {
+        clear( SHOW_TICK_LABELS_KEY );
+        return this;
     }
 
     /**
@@ -51,7 +104,7 @@ public class AxisOptions
      */
     public final AxisOptions setTickSize( double tickSize )
     {
-        put( TICK_SIZE_KEY, new Double( tickSize ) );
+        put( TICK_SIZE_KEY, Double.valueOf( tickSize ) );
         return this;
     }
 
@@ -68,7 +121,7 @@ public class AxisOptions
      */
     public final AxisOptions setMinTickSize( double minTickSize )
     {
-        put( MIN_TICK_SIZE_KEY, new Double( minTickSize ) );
+        put( MIN_TICK_SIZE_KEY, Double.valueOf( minTickSize ) );
         return this;
     }
 
@@ -85,7 +138,7 @@ public class AxisOptions
      */
     public final AxisOptions setTickDecimals( double tickDecimals )
     {
-        put( TICK_DECIMALS_KEY, new Double( tickDecimals ) );
+        put( TICK_DECIMALS_KEY, Double.valueOf( tickDecimals ) );
         return this;
     }
 
@@ -103,6 +156,58 @@ public class AxisOptions
     public final AxisOptions clearTickDecimals()
     {
         clear( TICK_DECIMALS_KEY );
+        return this;
+    }
+
+    /**
+     * Show minor ticks between the major ticks. Default is to show minor ticks.
+     */
+    public final AxisOptions setShowMinorTicks( boolean showMinorTicks )
+    {
+        put( SHOW_MINOR_TICKS_KEY, showMinorTicks );
+        return this;
+    }
+
+    /**
+     * @return whether the minor ticks are visible.
+     */
+    public final Boolean getShowMinorTicks()
+    {
+        return getBoolean( SHOW_MINOR_TICKS_KEY );
+    }
+
+    /**
+     * Hide minor ticks.
+     */
+    public final AxisOptions clearShowMinorTicks()
+    {
+        clear( SHOW_MINOR_TICKS_KEY );
+        return this;
+    }
+
+    /**
+     * Set the visibility of all tick marks.
+     */
+    public final AxisOptions setShowTicks( boolean showTicks )
+    {
+        put( SHOW_TICKS_KEY, showTicks );
+        return this;
+    }
+
+    /**
+     * @return the visibility of all tick marks.
+     */
+    public final Boolean getShowTicks()
+    {
+        return getBoolean( SHOW_TICKS_KEY );
+    }
+
+    /**
+     * Display all tick marks.
+     */
+    public final AxisOptions clearShowTicks()
+    {
+        clear( SHOW_TICKS_KEY );
         return this;
     }
 }

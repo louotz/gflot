@@ -31,7 +31,6 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.googlecode.gflot.client.event.LoadImagesCallback;
@@ -119,7 +118,7 @@ public class SimplePlot
     public void setWidth( int width )
     {
         this.width = width;
-        DOM.setStyleAttribute( getElement(), "width", width + "px" );
+        getElement().setPropertyString( "width", width + "px" );
     }
 
     @Override
@@ -132,7 +131,7 @@ public class SimplePlot
     public void setHeight( int height )
     {
         this.height = height;
-        DOM.setStyleAttribute( getElement(), "height", height + "px" );
+        getElement().setPropertyString( "height", height + "px" );
     }
 
     public void setupGrid()

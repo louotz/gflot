@@ -118,7 +118,7 @@ public class SimplePlot
     public void setWidth( int width )
     {
         this.width = width;
-        getElement().setPropertyString( "width", width + "px" );
+        getElement().getStyle().setProperty( "width", width + "px" );
     }
 
     @Override
@@ -131,7 +131,7 @@ public class SimplePlot
     public void setHeight( int height )
     {
         this.height = height;
-        getElement().setPropertyString( "height", height + "px" );
+        getElement().getStyle().setProperty( "height", height + "px" );
     }
 
     public void setupGrid()

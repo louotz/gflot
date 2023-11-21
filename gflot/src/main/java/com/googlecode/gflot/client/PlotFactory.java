@@ -107,7 +107,7 @@ public final class PlotFactory
     static Element createUniquePlotContainer()
     {
         Element element = DOM.createElement( "div" );
-        element.setPropertyString("id", Document.get().createUniqueId());
+        element.setPropertyString( "id", Document.get().createUniqueId() );
         return element;
     }
 
